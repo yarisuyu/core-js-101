@@ -20,8 +20,14 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  return {
+    width,
+    height,
+    getArea() {
+      return this.width * this.height;
+    },
+  };
 }
 
 
@@ -35,8 +41,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 
@@ -51,8 +57,10 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const result = JSON.parse(json);
+  Object.setPrototypeOf(result, proto);
+  return result;
 }
 
 
@@ -111,6 +119,68 @@ function fromJSON(/* proto, json */) {
  */
 
 const cssSelectorBuilder = {
+  /* result: '',
+
+  element(value) {
+    console.log(`element ${value}`);
+    this.result = `${this.result}${value}`;
+
+    console.log(this.result);
+    return this;
+  },
+
+  id(value) {
+    console.log(`id ${value}`);
+    this.result = `${this.result}#${value}`;
+    console.log(this.result);
+    return this;
+  },
+
+  class(value) {
+    console.log(`class ${value}`);
+    this.result = `${this.result}.${value}`;
+    console.log(this.result);
+    return this;
+  },
+
+  attr(value) {
+    console.log(`attr ${value}`);
+    this.result = `${this.result}[${value}]`;
+    console.log(this.result);
+    return this;
+  },
+
+  pseudoClass(value) {
+    console.log(`pseudoClass ${value}`);
+    this.result = `${this.result}:${value}`;
+    console.log(this.result);
+    return this;
+  },
+
+  pseudoElement(value) {
+    console.log(`pseudoElement ${value}`);
+    this.result = `${this.result}::${value}`;
+    console.log(this.result);
+    return this;
+  },
+
+  combine(selector1, combinator, selector2) {
+    console.log(`combine ${selector1}, ${combinator}, ${selector2}`);
+    const sel1 = selector1.stringify();
+    console.log(sel1);
+    const sel2 = selector2.stringify();
+    console.log(sel2);
+    this.result = `${sel1} ${combinator} ${sel2}`;
+    console.log(this.result);
+    return this;
+  },
+
+  stringify() {
+    const { result } = this;
+    this.result = '';
+    console.log('____________STRINGIFY___________');
+    return result;
+  }, */
   element(/* value */) {
     throw new Error('Not implemented');
   },
@@ -140,6 +210,16 @@ const cssSelectorBuilder = {
   },
 };
 
+
+/*
+ assert.equal(
+      builder.combine(
+        builder.element('p').pseudoClass('focus'),
+        '>',
+        builder.element('a').attr('href$=".png"'),
+      ).stringify(),
+      'p:focus > a[href$=".png"]',
+    ); */
 
 module.exports = {
   Rectangle,
